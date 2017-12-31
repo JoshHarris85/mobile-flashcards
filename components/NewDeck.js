@@ -1,14 +1,34 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 
-export default class NewDeck extends Component {
+class NewDeck extends Component {
   render() {
     const { decks } = this.props
 
     return (
-      <View>
+      <View style={styles.center}>
         <Text>New Deck</Text>
       </View>
     )
   }
 }
+
+
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
+
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(NewDeck)

@@ -1,27 +1,45 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 // import { connect } from 'react-redux'
 // import { receiveEntries, addEntry } from '../actions'
 import { fetchDecks } from '../utils/api'
+import { connect } from 'react-redux'
+import { receiveDecks } from '../actions'
 
-export default class Decks extends Component {
-  state = {
-    ready: false,
-  }
-  componentDidMount () {
-    const { dispatch } = this.props
-
+class Decks extends Component {
+  componentWillMount () {
     fetchDecks()
-      .then((decks) => console.log(decks))
+      .then((decks) => this.props.dispatch(receiveDecks(decks)))
   }
 
   render() {
     const { decks } = this.props
-
+    console.log(decks.map((deck) => { return deck }))
     return (
-      <View>
-        <Text>Decks</Text>
+      <View style={styles.center}>
+        <Text>
+          {decks.map((deck) => { return deck.title })}
+        </Text>
       </View>
     )
   }
 }
+
+
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
+
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Decks)

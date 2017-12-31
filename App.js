@@ -1,19 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import Decks from './components/Decks'
-import NewDeck from './components/Decks'
+import NewDeck from './components/NewDeck'
 import { TabNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
 const Tabs = TabNavigator({
-  History: {
+  Decks: {
     screen: Decks,
     navigationOptions: {
       tabBarLabel: 'Decks',
       tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='cards-outline' size={30} color={tintColor} />
     },
   },
-  AddEntry: {
+  NewDeck: {
     screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck',
@@ -36,9 +39,11 @@ const Tabs = TabNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <Tabs />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <Tabs />
+        </View>
+      </Provider>
     )
   }
 }
