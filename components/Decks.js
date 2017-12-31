@@ -20,7 +20,7 @@ export default class Decks extends Component {
 
     return (
       <View>
-        <Text>Hello World</Text>
+        <Text>Decks</Text>
       </View>
     )
   }
