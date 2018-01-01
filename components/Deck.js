@@ -19,10 +19,16 @@ class Deck extends Component {
         <Text style={styles.deck_cards}>
           { deck.questions.length } { deck.questions.length === 1 ? 'card' : 'cards' }
         </Text>
-        <TouchableOpacity style={[styles.button, {backgroundColor: 'white', marginTop: 40}]} onPress={() => console.log('clicked!')}>
+        <TouchableOpacity
+          style={[styles.button, {backgroundColor: 'white', marginTop: 40}]}
+          onPress={() => this.props.navigation.navigate('AddCard', { deck: deck })}
+        >
           <Text style={{ color: 'black' }}> Add Card </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, {backgroundColor: 'black'}]} onPress={() => console.log('clicked!')}>
+        <TouchableOpacity
+          style={[styles.button, {backgroundColor: 'black'}]}
+          onPress={() => this.props.navigation.navigate('Quiz', { deck: deck })}
+        >
           <Text style={{ color: 'white' }}> Start Quiz </Text>
         </TouchableOpacity>
       </View>

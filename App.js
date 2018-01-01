@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Platform } from 'react-native';
 import Decks from './components/Decks'
 import Deck from './components/Deck'
 import NewDeck from './components/NewDeck'
+import AddCard from './components/AddCard'
+import Quiz from './components/Quiz'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { createStore } from 'redux'
@@ -44,6 +46,26 @@ const MainNavigator = StackNavigator({
   Deck: {
     screen: Deck,
     navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: 'Add Card',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+      }
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz',
       headerTintColor: 'white',
       headerStyle: {
         backgroundColor: 'black',
