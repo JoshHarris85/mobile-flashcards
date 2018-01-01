@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 // import { connect } from 'react-redux'
 // import { receiveEntries, addEntry } from '../actions'
-import { fetchDecks } from '../utils/api'
+import { getDecks } from '../utils/api'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
 
 class Decks extends Component {
   componentWillMount () {
-    fetchDecks()
+    getDecks()
       .then((decks) => this.props.dispatch(receiveDecks(decks)))
   }
 

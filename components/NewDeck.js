@@ -1,8 +1,30 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { connect } from 'react-redux'
+import { addDeck } from '../actions'
+import { getDeck, saveDeckTitle } from '../utils/api'
 
 class NewDeck extends Component {
+  state = {
+    title: ''
+  }
+
+  submit = () => {
+    const { title } = this.state;
+    // Add the deck to redux
+    this.props.addDeck(title);
+    // Add data to AsyncStorage
+    saveDeckTitle(title);
+    // Reset local state
+    this.setState({title: ''});
+
+    // Navigate away to the deck
+    getDeck(title).then((deck) =>
+      console.log(deck)
+      // this.props.navigation.navigate('Deck', { deck: deck })
+    );
+  }
+
   render() {
     const { decks } = this.props
 
@@ -14,10 +36,11 @@ class NewDeck extends Component {
         <TextInput
           style={styles.input}
           nderlineColorAndroid="black"
-          onChangeText={(text) => console.log(text)}
+          onChangeText={(text) => this.setState({title: text})}
           placeholder='Deck Title'
+          defaultValue={this.state.title}
         />
-        <TouchableOpacity style={styles.button} onPress={() => console.log('clicked!')}>
+        <TouchableOpacity style={styles.button} onPress={this.submit}>
           <Text style={{ color: 'white' }}> Submit </Text>
         </TouchableOpacity>
       </View>
@@ -60,12 +83,15 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps (decks) {
-  return {
-    decks
-  }
-}
+const mapStateToProps = (state, props) => ({
+  decks: state.decks
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addDeck: (title) => dispatch(addDeck(title))
+});
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(NewDeck)

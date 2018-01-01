@@ -30,8 +30,13 @@ export function setInitialData () {
                     ]
                   }
                 ];
-
   AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initData))
 
   return initData
+}
+
+export function formatData (results) {
+  return results === null
+    ? setInitialData()
+    : JSON.parse(results)
 }

@@ -5,7 +5,7 @@ function decks (state = [], action) {
     case RECEIVE_DECKS :
     return [...state, ...action.decks]
     case ADD_DECK :
-      return [...state, ...action.decks]
+      return [...state, { title: action.title, questions: [] }]
     case ADD_CARD :
       return [...state]
     default :
