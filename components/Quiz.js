@@ -5,9 +5,20 @@ import { connect } from 'react-redux'
 class Quiz extends Component {
   state = {
     showAnswer: false,
+    allAnswered: false,
     answered: 0,
     attempted: 0,
     question_index: 0
+  }
+
+  resetQuiz = () => {
+    this.setState({
+      showAnswer: false,
+      allAnswered: false,
+      answered: 0,
+      attempted: 0,
+      question_index: 0
+    })
   }
 
   updateAnswer = () => {
@@ -20,10 +31,11 @@ class Quiz extends Component {
 
       return {
         ...state,
-        answered: state.answered < deck.questions.length ? answered + 1 : answered,
+        answered: answered < deck.questions.length ? answered + 1 : answered,
         question_index: question_index + 1 < deck.questions.length ? question_index + 1 : question_index,
         showAnswer: false,
-        attempted: state.attempted < deck.questions.length ? attempted + 1 : attempted,
+        attempted: attempted < deck.questions.length ? attempted + 1 : attempted,
+        allAnswered: attempted + 1 === deck.questions.length ? true : false
       }
     });
   }
@@ -44,11 +56,13 @@ class Quiz extends Component {
       const question_index = state.question_index
       const attempted = state.attempted
       const { deck } = this.props.navigation.state.params
+
       return {
         ...state,
         question_index: question_index + 1 < deck.questions.length ? question_index + 1 : question_index,
         showAnswer: false,
         attempted: state.attempted < deck.questions.length ? attempted + 1 : attempted,
+        allAnswered: attempted + 1 === deck.questions.length ? true : false
       }
     });
   }
@@ -59,35 +73,59 @@ class Quiz extends Component {
     const { questions } = deck;
     let current_question = questions[state.question_index];
 
-    return (
-      <View style={styles.container}>
-        <View style={styles.questions}>
-          <Text style={styles.header}>
-            {`${state.attempted}/${questions.length}`}
-          </Text>
-        </View>
+    if (state.allAnswered) {
+      return (
         <View style={styles.container}>
           <Text style={styles.header}>
-            { state.showAnswer ? current_question.answer : current_question.question }
-          </Text>
-          <Text style={styles.text} onPress={() => this.updateShowAnswer()}>
-            { state.showAnswer ? 'Answer' : 'Question' }
+            Score: {`${Math.round((state.answered / questions.length) * 100)} %`}
           </Text>
           <TouchableOpacity
-            style={[styles.button, {backgroundColor: 'green'}]}
-            onPress={() => this.updateAnswer()}
+            style={[styles.button, {backgroundColor: 'black'}]}
+            onPress={() => this.resetQuiz()}
           >
-            <Text style={{ color: 'white' }}> Correct </Text>
+            <Text style={{ color: 'white' }}> Restart Quiz </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.button, {backgroundColor: 'red'}]}
-            onPress={() => this.updateQuestionIndex()}
+            style={[styles.button, {backgroundColor: 'black'}]}
+            onPress={() => this.props.navigation.goBack()}
           >
-            <Text style={{ color: 'white' }}> Incorrect </Text>
+            <Text style={{ color: 'white' }}> Back to Deck </Text>
           </TouchableOpacity>
         </View>
-      </View>
-    )
+      )
+    }
+
+    if (!state.allAnswered) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.questions}>
+            <Text style={styles.header}>
+              {`${state.attempted}/${questions.length}`}
+            </Text>
+          </View>
+          <View style={styles.container}>
+            <Text style={styles.header}>
+              { state.showAnswer ? current_question.answer : current_question.question }
+            </Text>
+            <Text style={styles.text} onPress={() => this.updateShowAnswer()}>
+              { state.showAnswer ? 'Answer' : 'Question' }
+            </Text>
+            <TouchableOpacity
+              style={[styles.button, {backgroundColor: 'green'}]}
+              onPress={() => this.updateAnswer()}
+            >
+              <Text style={{ color: 'white' }}> Correct </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.button, {backgroundColor: 'red'}]}
+              onPress={() => this.updateQuestionIndex()}
+            >
+              <Text style={{ color: 'white' }}> Incorrect </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+    }
   }
 }
 
