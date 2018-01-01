@@ -39,8 +39,6 @@ class NewDeck extends Component {
   }
 
   render() {
-    const { decks } = this.props
-
     return (
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.header}>

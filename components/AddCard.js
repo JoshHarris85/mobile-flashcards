@@ -1,42 +1,73 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 
 class AddCard extends Component {
+  state = {
+    question: '',
+    answer: ''
+  }
+
   render() {
+    const { deck } = this.props.navigation.state.params
+
     return (
-      <View style={styles.deck}>
-        <Text style={{fontSize: 20}}>
-          Hello World
+      <KeyboardAvoidingView style={styles.container}>
+        <Text style={styles.header}>
+          Question:
         </Text>
-      </View>
-    );
+        <TextInput
+          style={styles.input}
+          nderlineColorAndroid="black"
+          defaultValue={this.state.question}
+        />
+        <Text style={styles.header}>
+          Answer:
+        </Text>
+        <TextInput
+          style={styles.input}
+          nderlineColorAndroid="black"
+          defaultValue={this.state.answer}
+        />
+        <TouchableOpacity style={styles.button}>
+          <Text style={{ color: 'white' }}> Submit </Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
    flex: 1,
-   alignItems: 'center',
-   justifyContent: 'center'
+   alignSelf: 'stretch',
+   justifyContent: 'center',
+   padding: 30
   },
-  deck: {
+  center: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 25
+    alignItems: 'center'
   },
-  deck_cards: {
-    fontSize: 16,
-    color: '#757575',
+  header: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    padding: 10,
+    textAlign: 'center'
+  },
+  input: {
+    height: 50,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 10,
     textAlign: 'center'
   },
   button: {
     alignItems: 'center',
-    margin: 10,
+    backgroundColor: 'black',
+    margin: 40,
     padding: 15,
-    borderRadius: 10,
-    alignSelf: 'stretch'
+    borderRadius: 10
   }
 })
 
