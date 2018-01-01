@@ -79,7 +79,17 @@ class Quiz extends Component {
     const { questions } = deck;
     let current_question = questions[state.question_index];
 
-    if (state.allAnswered) {
+    if (questions.length < 1) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.header}>
+            There are no questions for this deck yet.
+          </Text>
+        </View>
+      )
+    }
+
+    if (state.allAnswered && questions.length) {
       return (
         <View style={styles.container}>
           <Text style={styles.header}>
@@ -101,7 +111,7 @@ class Quiz extends Component {
       )
     }
 
-    if (!state.allAnswered) {
+    if (!state.allAnswered && questions.length) {
       return (
         <View style={styles.container}>
           <View style={styles.questions}>
