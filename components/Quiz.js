@@ -8,18 +8,21 @@ import { addCardToDeck } from '../utils/api'
 class Quiz extends Component {
   state = {
     showAnswer: false,
-    answered: 0
+    answered: 0,
+    question_index: 0
   }
 
   updateAnswer = () => {
     this.setState(() => {
       const state = this.state
       const answered = state.answered
+      const question_index = state.question_index
       const { deck } = this.props.navigation.state.params
 
       return {
         ...state,
-        answered: state.answered < deck.questions.length ? answered + 1 : answered
+        answered: state.answered < deck.questions.length ? answered + 1 : answered,
+        question_index: question_index + 1 < deck.questions.length ? question_index + 1 : question_index
       }
     });
   }
@@ -34,11 +37,23 @@ class Quiz extends Component {
     });
   }
 
+  updateQuestionIndex = () => {
+    this.setState(() => {
+      const state = this.state
+      const question_index = state.question_index
+      const { deck } = this.props.navigation.state.params
+      return {
+        ...state,
+        question_index: question_index + 1 < deck.questions.length ? question_index + 1 : question_index
+      }
+    });
+  }
+
   render() {
     const { deck } = this.props.navigation.state.params;
     const { state } = this;
     const { questions } = deck;
-    let current_question = questions[0];
+    let current_question = questions[state.question_index];
 
     return (
       <View style={styles.container}>
@@ -59,7 +74,7 @@ class Quiz extends Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, {backgroundColor: 'red'}]}
-          onPress={() => console.log('show next question')}
+          onPress={() => this.updateQuestionIndex()}
         >
           <Text style={{ color: 'white' }}> Incorrect </Text>
         </TouchableOpacity>
