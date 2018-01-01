@@ -26,7 +26,7 @@ class AddCard extends Component {
     // Add the card to redux
     this.props.addCard({title: deck.title, question, answer});
     // Add data to AsyncStorage
-    addCardToDeck(title, {question, answer});
+    addCardToDeck(deck.title, {question, answer});
     // Reset local state
     this.setState({question: '', answer: ''});
     // Navigate to current deck
