@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
-// import { connect } from 'react-redux'
-// import { receiveEntries, addEntry } from '../actions'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { receiveDecks } from '../actions'
 
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
