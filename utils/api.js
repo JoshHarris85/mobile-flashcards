@@ -9,7 +9,7 @@ export function getDecks() {
 export function getDeck(title) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then((decks) => {
     return JSON.parse(decks).filter((deck) => (
-      deck.title === title;
+      deck.title === title
     ));
   });
 }
