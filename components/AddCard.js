@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { addCard } from '../actions'
-import { NavigationActions } from 'react-navigation'
 import { addCardToDeck } from '../utils/api'
 
 class AddCard extends Component {
