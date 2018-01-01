@@ -9,7 +9,24 @@ class NewDeck extends Component {
     title: ''
   }
 
+  checkIfEmpty = () => {
+    if (this.state.title.length < 1) {
+      alert('You must enter a title');
+      return true;
+    }
+    return false;
+  }
+
+  checkIfUsed = () => {
+    if((this.props.decks.filter((deck) => deck.title === this.state.title)).length){
+      alert('Deck name has been used');
+      return true;
+    }
+    return false;
+  }
+
   submit = () => {
+    if(this.checkIfUsed() || this.checkIfEmpty()) return;
     const { title } = this.state;
     // Add the deck to redux
     this.props.addDeck(title);
@@ -17,12 +34,8 @@ class NewDeck extends Component {
     saveDeckTitle(title);
     // Reset local state
     this.setState({title: ''});
-
-    // Navigate away to the deck
-    getDeck(title).then((deck) =>
-      console.log(deck)
-      // this.props.navigation.navigate('Deck', { deck: deck })
-    );
+    // Navigate to new deck
+    this.props.navigation.navigate('Deck', { deck: {title: title, questions: []} })
   }
 
   render() {
@@ -83,9 +96,11 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = (state, props) => ({
-  decks: state.decks
-});
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
   addDeck: (title) => dispatch(addDeck(title))
