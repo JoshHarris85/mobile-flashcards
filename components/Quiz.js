@@ -1,43 +1,120 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, TextInput, View } from 'react-native'
 import { connect } from 'react-redux'
+import { addCard } from '../actions'
+import { NavigationActions } from 'react-navigation'
+import { addCardToDeck } from '../utils/api'
 
 class Quiz extends Component {
+  state = {
+    showAnswer: false,
+    answered: 0
+  }
+
+  updateAnswer = () => {
+    this.setState(() => {
+      const state = this.state
+      const answered = state.answered
+      const { deck } = this.props.navigation.state.params
+
+      return {
+        ...state,
+        answered: state.answered < deck.questions.length ? answered + 1 : answered
+      }
+    });
+  }
+
+  updateShowAnswer = () => {
+    this.setState(() => {
+      const state = this.state
+      return {
+        ...state,
+        showAnswer: !state.showAnswer
+      }
+    });
+  }
+
   render() {
+    const { deck } = this.props.navigation.state.params
+
     return (
-      <View style={styles.deck}>
-        <Text style={{fontSize: 20}}>
-          Hello World
+      <View style={styles.container}>
+        <Text style={styles.header}>
+          {`${this.state.answered}/${deck.questions.length}`}
         </Text>
+        <Text style={styles.header}>
+          this a question
+        </Text>
+        <Text style={styles.text} onPress={() => this.updateShowAnswer()}>
+          Answer
+        </Text>
+        <TouchableOpacity
+          style={[styles.button, {backgroundColor: 'green'}]}
+          onPress={() => this.updateAnswer()}
+        >
+          <Text style={{ color: 'white' }}> Correct </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, {backgroundColor: 'red'}]}
+          onPress={() => console.log('show next question')}
+        >
+          <Text style={{ color: 'white' }}> Incorrect </Text>
+        </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
    flex: 1,
-   alignItems: 'center',
-   justifyContent: 'center'
+   alignSelf: 'stretch',
+   justifyContent: 'center',
+   padding: 30
   },
-  deck: {
+  center: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 25
+    alignItems: 'center'
   },
-  deck_cards: {
-    fontSize: 16,
-    color: '#757575',
+  header: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    padding: 10,
+    textAlign: 'center'
+  },
+  text: {
+    padding: 10,
+    textAlign: 'center',
+    color: 'red'
+  },
+  input: {
+    height: 50,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 10,
     textAlign: 'center'
   },
   button: {
     alignItems: 'center',
+    backgroundColor: 'black',
     margin: 10,
     padding: 15,
-    borderRadius: 10,
-    alignSelf: 'stretch'
+    borderRadius: 10
   }
 })
 
-export default connect()(Quiz)
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  addCard: (card) => dispatch(addCard(card))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Quiz)
