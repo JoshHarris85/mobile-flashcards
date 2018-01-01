@@ -35,18 +35,21 @@ class Quiz extends Component {
   }
 
   render() {
-    const { deck } = this.props.navigation.state.params
+    const { deck } = this.props.navigation.state.params;
+    const { state } = this;
+    const { questions } = deck;
+    let current_question = questions[0];
 
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
-          {`${this.state.answered}/${deck.questions.length}`}
+          {`${state.answered}/${questions.length}`}
         </Text>
         <Text style={styles.header}>
-          this a question
+          { state.showAnswer ? current_question.answer : current_question.question }
         </Text>
         <Text style={styles.text} onPress={() => this.updateShowAnswer()}>
-          Answer
+          { state.showAnswer ? 'Answer' : 'Question' }
         </Text>
         <TouchableOpacity
           style={[styles.button, {backgroundColor: 'green'}]}
