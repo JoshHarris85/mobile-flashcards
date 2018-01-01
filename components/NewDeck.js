@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
 import { saveDeckTitle } from '../utils/api'
@@ -42,7 +42,7 @@ class NewDeck extends Component {
     const { decks } = this.props
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.header}>
           What is the title of your new deck?
         </Text>
@@ -56,7 +56,7 @@ class NewDeck extends Component {
         <TouchableOpacity style={styles.button} onPress={this.submit}>
           <Text style={{ color: 'white' }}> Submit </Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
