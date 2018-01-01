@@ -7,7 +7,13 @@ function decks (state = [], action) {
     case ADD_DECK :
       return [...state, { title: action.title, questions: [] }]
     case ADD_CARD :
-      return [...state]
+      return [...state].map((deck) => {
+        if(deck.title === action.card.title) {
+          deck.questions.push({question: action.card.question, answer: action.card.answer});
+          return deck;
+        }
+        return deck;
+      })
     default :
       return state
   }

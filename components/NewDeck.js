@@ -35,7 +35,7 @@ class NewDeck extends Component {
     // Reset local state
     this.setState({title: ''});
     // Navigate to new deck
-    this.props.navigation.navigate('Deck', { deck: {title: title, questions: []} })
+    this.props.navigation.navigate('Deck', { title: title })
   }
 
   render() {

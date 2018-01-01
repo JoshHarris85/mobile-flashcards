@@ -17,7 +17,7 @@ class Decks extends Component {
           keyExtractor={item => item.title}
           data={this.props.decks}
           renderItem={({item}) =>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', { deck: item })} >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', { title: item.title })} >
               <View style={styles.item}>
                 <Text style={{fontSize: 20}}>
                   { item.title }

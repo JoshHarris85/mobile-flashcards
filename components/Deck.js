@@ -5,12 +5,18 @@ import { connect } from 'react-redux'
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: `${navigation.state.params.deck.title}`
+      title: `${navigation.state.params.title}`
     }
   }
 
   render() {
-    const { deck } = this.props.navigation.state.params
+    const { title } = this.props.navigation.state.params
+    // Get deck from redux store since we cannot pass a param
+    // when Navigating backwards
+    let deck = this.props.decks.filter((deck) => {
+      if(deck.title === title) return deck
+    })[0]
+
     return (
       <View style={styles.deck}>
         <Text style={{fontSize: 20}}>
@@ -62,4 +68,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect()(Deck)
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Deck)
