@@ -19,13 +19,13 @@ class Decks extends Component {
           keyExtractor={item => item.title}
           data={this.props.decks}
           renderItem={({item}) =>
-            <TouchableOpacity onPress={() => console.log('clicked!')} >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck', { deck: item })} >
               <View style={styles.item}>
                 <Text style={{fontSize: 20}}>
                   { item.title }
                 </Text>
                 <Text style={styles.item_cards}>
-                  { item.questions.length } { item.questions.length === 1 ? 'card' : 'cards'}
+                  { item.questions.length } { item.questions.length === 1 ? 'card' : 'cards' }
                 </Text>
                 <View style={styles.line}/>
               </View>
@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   container: {
    flex: 1,
    alignSelf: 'stretch',
-   padding: 30
+   padding: 30,
+   marginTop: 50
   },
   item: {
     alignItems: 'center',

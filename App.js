@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import Decks from './components/Decks'
+import Deck from './components/Deck'
 import NewDeck from './components/NewDeck'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -36,12 +37,27 @@ const Tabs = TabNavigator({
   }
 })
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+      }
+    }
+  }
+})
+
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{flex: 1}}>
-          <Tabs />
+          <MainNavigator />
         </View>
       </Provider>
     )
