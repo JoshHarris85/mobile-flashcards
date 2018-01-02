@@ -1,3 +1,4 @@
+// Most code in this helper is re-used from React's UdaciFitness demo
 import React from 'react'
 import { AsyncStorage } from 'react-native'
 import { Notifications, Permissions } from 'expo'
