@@ -4,11 +4,6 @@ import { connect } from 'react-redux'
 import { setLocalNotification, clearLocalNotification } from '../utils/helpers'
 
 class Quiz extends Component {
-  componentDidMount() {
-    clearLocalNotification()
-      .then(setLocalNotification)
-  }
-
   state = {
     showAnswer: false,
     allAnswered: false,
@@ -34,6 +29,11 @@ class Quiz extends Component {
       const question_index = state.question_index
       const attempted = state.attempted
       const { deck } = this.props.navigation.state.params
+
+      if(attempted + 1 === deck.questions.length){
+        clearLocalNotification()
+          .then(setLocalNotification)
+      }
 
       return {
         ...state,
@@ -62,6 +62,11 @@ class Quiz extends Component {
       const question_index = state.question_index
       const attempted = state.attempted
       const { deck } = this.props.navigation.state.params
+
+      if(attempted + 1 === deck.questions.length){
+        clearLocalNotification()
+          .then(setLocalNotification)
+      }
 
       return {
         ...state,
