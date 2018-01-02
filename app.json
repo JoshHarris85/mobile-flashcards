@@ -1,5 +1,16 @@
 {
   "expo": {
-    "sdkVersion": "23.0.0"
+    "sdkVersion": "23.0.0",
+    "name": "Mobile-Flashcards",
+    "description": "The application is a small flashcard application created by using react-native
+    that allows you to create decks, add questions, and quiz yourself.",
+    "slug": "mobile-flashcards",
+    "version": "1.0",
+    "ios": {
+      "bundleIdentifier": "org.mobile-flashcards.exp"
+    },
+    "android": {
+      "package": "org.mobile-flashcards.exp"
+    }
   }
 }
