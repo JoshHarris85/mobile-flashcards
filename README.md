@@ -1,3 +1,26 @@
+# Udacity Mobile-Flashcards
+This is the third and final project for the Udacity React Nanodegree program.
+The application is a small flashcard application created by using react-native
+that allows you to create decks, add questions, and quiz yourself.
+
+## Installation
+    - `cd mobile-flashcards`
+    - `npm install`
+    - `npm start`
+    - `Open a simulator or install Expo to use on a local phone`
+* OR
+    - `cd mobile-flashcards`
+    - `yarn install`
+    - `yarn start`
+    - `Open a simulator or install Expo to use on a local phone`
+
+[Expo](https://expo.io/)
+
+## Functionality Tested
+Functionality of this application has been tested on iPhone X simulator using
+Xcode, and using an Android Samsung Galaxy s8+ locally with Expo.
+
+# Create React Native App
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
