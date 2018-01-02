@@ -8,7 +8,7 @@ that allows you to create decks, add questions, and quiz yourself.
     - `npm install`
     - `npm start`
     - `Open a simulator or install Expo to use on a local phone`
-## OR
+### OR
     - `cd mobile-flashcards`
     - `yarn install`
     - `yarn start`
